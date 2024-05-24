@@ -1,20 +1,21 @@
 package br.com.literalura.literalura_tiago;
 
-import br.com.literalura.literalura_tiago.repositorio.LivroRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import br.com.literalura.literalura_tiago.principal.Principal;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 
-@SpringBootApplication
-public class LiteraluraTiagoApplication {
-
-	@Autowired
-	private LivroRepository repositorio;
+@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class })
+public class LiteraluraTiagoApplication implements CommandLineRunner {
 
 	public static void main(String[] args) {
 		SpringApplication.run(LiteraluraTiagoApplication.class, args);
 	}
 
 	@Override
-
+	public void run(String... args) throws Exception {
+		Principal principal = new Principal();
+		principal.exibeMenu();
+	}
 }
