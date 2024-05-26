@@ -1,21 +1,38 @@
 package br.com.literalura.literalura_tiago;
 
 import br.com.literalura.literalura_tiago.principal.Principal;
+import br.com.literalura.literalura_tiago.service.ConsumoApi;
+import br.com.literalura.literalura_tiago.service.LivroService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.web.client.RestTemplate;
 
-@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class })
+@SpringBootApplication
 public class LiteraluraTiagoApplication implements CommandLineRunner {
+
+	private final ConsumoApi consumoApi;
+
+	private final LivroService livroService;
+
+	public LiteraluraTiagoApplication(@Lazy ConsumoApi consumoApi, LivroService livroService) {
+		this.consumoApi = consumoApi;
+        this.livroService = livroService;
+    }
 
 	public static void main(String[] args) {
 		SpringApplication.run(LiteraluraTiagoApplication.class, args);
 	}
 
+	public RestTemplate restTemplate() {
+		return new RestTemplate();
+	}
+
 	@Override
 	public void run(String... args) throws Exception {
-		Principal principal = new Principal();
+		Principal principal = new Principal(consumoApi, livroService);
+
 		principal.exibeMenu();
 	}
 }

@@ -1,10 +1,37 @@
 package br.com.literalura.literalura_tiago.principal;
 
+import br.com.literalura.literalura_tiago.model.DadosLivro;
+import br.com.literalura.literalura_tiago.model.Livro;
+import br.com.literalura.literalura_tiago.service.ConsumoApi;
+import br.com.literalura.literalura_tiago.service.ConverteDados;
+import br.com.literalura.literalura_tiago.service.LivroService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
+@Component
 public class Principal {
 
-    private Scanner leitura = new Scanner(System.in);
+    private final Scanner leitura = new Scanner(System.in);
+
+    private final ConverteDados conversor = new ConverteDados();
+
+    private final ConsumoApi consumoApi;
+
+    private final LivroService livroService;
+
+    private List<DadosLivro> dadosLivros = new ArrayList<>();
+
+    @Autowired
+    public Principal(ConsumoApi consumoApi, LivroService livroService) {
+        this.consumoApi = consumoApi;
+        this.livroService = livroService;
+    }
+
+    private final String ENDERECO = "http://gutendex.com/books?search=";
 
     public void exibeMenu() {
         var menu = """
@@ -35,11 +62,11 @@ public class Principal {
                 }
                 case 3 -> {
                     System.out.println("Opção 3 selecionada");
-                    listarLivrosRegis();
+                    listarAutoresRegis();
                 }
                 case 4 -> {
                     System.out.println("Opção 4 selecionada");
-                    atoresVivosEmAno();
+                    autoresVivosEmAno();
                 }
                 case 5 -> {
                     System.out.println("Opção 5 selecionada");
@@ -52,23 +79,29 @@ public class Principal {
             leitura.nextLine();
         }
         System.out.println("Saindo ...");
+        System.exit(0);
     }
 
     private void buscarLivroPeloTitulo() {
+        System.out.println("Digite o nome do livro que deseja buscar: ");
+        var nomeLivro = leitura.nextLine();
 
+        livroService.salvarLivrosAutores(nomeLivro);
     }
 
     private void listarLivrosRegis() {
-
+        livroService.imprimirTodosLivros();
     }
 
-    private void atoresVivosEmAno() {
+    private void listarAutoresRegis() {
+        // Implementação do método
+    }
 
+    private void autoresVivosEmAno() {
+        // Implementação do método
     }
 
     private void buscarLivrosPorIdioma() {
-
+        // Implementação do método
     }
-
-
 }

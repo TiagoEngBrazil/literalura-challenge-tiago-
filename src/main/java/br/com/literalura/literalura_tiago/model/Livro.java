@@ -1,44 +1,52 @@
 package br.com.literalura.literalura_tiago.model;
 
+import jakarta.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
+@Entity
+@Table(name = "livros")
 public class Livro {
-    private int id;
-    private String title;
-    private List<Autor> authors;
-    private List<Autor> translators;
-    private List<String> subjects;
-    private List<String> bookshelves;
-    private List<String> languages;
-    private boolean copyright;
-    private String mediaType;
-    private Map<String, String> formats;
-    private int downloadCount;
 
-    // Construtor
-    public Livro(int id, String title, List<Autor> authors, List<Autor> translators, List<String> subjects,
-                 List<String> bookshelves, List<String> languages, boolean copyright, String mediaType,
-                 Map<String, String> formats, int downloadCount) {
-        this.id = id;
-        this.title = title;
-        this.authors = authors;
-        this.translators = translators;
-        this.subjects = subjects;
-        this.bookshelves = bookshelves;
-        this.languages = languages;
-        this.copyright = copyright;
-        this.mediaType = mediaType;
-        this.formats = formats;
-        this.downloadCount = downloadCount;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "author")
+    private String author;
+
+    @Column(length = 255)
+    private String title;
+
+    @OneToMany(mappedBy = "livro", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<Format> formats = new ArrayList<>();
+
+    @Column(name = "download_count")
+    private Double downloadCount;
+
+    @ElementCollection(fetch = FetchType.LAZY)
+    @CollectionTable(name = "languages", joinColumns = @JoinColumn(name = "livro_id"))
+    @Column(name = "language")
+    private List<String> languages = new ArrayList<>();
+
+    @ManyToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "livro_autor",
+            joinColumns = { @JoinColumn(name = "livro_id") },
+            inverseJoinColumns = { @JoinColumn(name = "autor_id") }
+    )
+    private List<Autor> authors = new ArrayList<>();
+
+    public Livro() {
     }
 
-    // Getters e Setters
-    public int getId() {
+    // getters and setters
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -50,36 +58,20 @@ public class Livro {
         this.title = title;
     }
 
-    public List<Autor> getAuthors() {
-        return authors;
+    public List<Format> getFormats() {
+        return formats;
     }
 
-    public void setAuthors(List<Autor> authors) {
-        this.authors = authors;
+    public void setFormats(List<Format> formats) {
+        this.formats = formats;
     }
 
-    public List<Autor> getTranslators() {
-        return translators;
+    public Double getDownloadCount() {
+        return downloadCount;
     }
 
-    public void setTranslators(List<Autor> translators) {
-        this.translators = translators;
-    }
-
-    public List<String> getSubjects() {
-        return subjects;
-    }
-
-    public void setSubjects(List<String> subjects) {
-        this.subjects = subjects;
-    }
-
-    public List<String> getBookshelves() {
-        return bookshelves;
-    }
-
-    public void setBookshelves(List<String> bookshelves) {
-        this.bookshelves = bookshelves;
+    public void setDownloadCount(Double downloadCount) {
+        this.downloadCount = downloadCount;
     }
 
     public List<String> getLanguages() {
@@ -90,35 +82,11 @@ public class Livro {
         this.languages = languages;
     }
 
-    public boolean isCopyright() {
-        return copyright;
+    public List<Autor> getAuthors() {
+        return authors;
     }
 
-    public void setCopyright(boolean copyright) {
-        this.copyright = copyright;
-    }
-
-    public String getMediaType() {
-        return mediaType;
-    }
-
-    public void setMediaType(String mediaType) {
-        this.mediaType = mediaType;
-    }
-
-    public Map<String, String> getFormats() {
-        return formats;
-    }
-
-    public void setFormats(Map<String, String> formats) {
-        this.formats = formats;
-    }
-
-    public int getDownloadCount() {
-        return downloadCount;
-    }
-
-    public void setDownloadCount(int downloadCount) {
-        this.downloadCount = downloadCount;
+    public void setAuthors(List<Autor> authors) {
+        this.authors = authors;
     }
 }
