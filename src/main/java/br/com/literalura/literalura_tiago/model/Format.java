@@ -29,8 +29,6 @@ public class Format {
         this.livro = livro;
     }
 
-    // getters and setters
-
     public Long getId() {
         return id;
     }

@@ -26,13 +26,16 @@ public class Autor {
     public Autor() {
     }
 
+    public Autor(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     public Autor(String name, int birthYear, Integer deathYear) {
         this.name = name;
         this.birthYear = birthYear;
         this.deathYear = deathYear;
     }
-
-    // getters and setters
 
     public Long getId() {
         return id;

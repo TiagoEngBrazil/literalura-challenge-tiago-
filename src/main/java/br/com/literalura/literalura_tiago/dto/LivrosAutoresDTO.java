@@ -1,20 +1,25 @@
 package br.com.literalura.literalura_tiago.dto;
 
 import br.com.literalura.literalura_tiago.model.Autor;
+import br.com.literalura.literalura_tiago.model.Livro;
 
 import java.util.List;
-import java.util.Map;
 
-public record LivroDTO(
-        int id,
-        String title,
-        List<Autor>authors,
-        List<Autor> translators,
-        List<String> subjects,
-        List<String> bookshelves,
-        List<String> languages,
-        boolean copyright,
-        String mediaType,
-        Map<String, String>formats,
-        int downloadCount
-) {}
+public class LivrosAutoresDTO {
+
+    private final Autor autor;
+    private final List<Livro> livros;
+
+    public LivrosAutoresDTO(Autor autor, List<Livro> livros) {
+        this.autor = autor;
+        this.livros = livros;
+    }
+
+    public Autor getAutor() {
+        return autor;
+    }
+
+    public List<Livro> getLivros() {
+        return livros;
+    }
+}

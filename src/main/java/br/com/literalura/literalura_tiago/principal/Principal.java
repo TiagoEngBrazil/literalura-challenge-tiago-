@@ -2,6 +2,7 @@ package br.com.literalura.literalura_tiago.principal;
 
 import br.com.literalura.literalura_tiago.model.DadosLivro;
 import br.com.literalura.literalura_tiago.model.Livro;
+import br.com.literalura.literalura_tiago.service.AutorService;
 import br.com.literalura.literalura_tiago.service.ConsumoApi;
 import br.com.literalura.literalura_tiago.service.ConverteDados;
 import br.com.literalura.literalura_tiago.service.LivroService;
@@ -23,12 +24,15 @@ public class Principal {
 
     private final LivroService livroService;
 
+    private final AutorService autorService;
+
     private List<DadosLivro> dadosLivros = new ArrayList<>();
 
     @Autowired
-    public Principal(ConsumoApi consumoApi, LivroService livroService) {
+    public Principal(ConsumoApi consumoApi, LivroService livroService, AutorService autorService) {
         this.consumoApi = consumoApi;
         this.livroService = livroService;
+        this.autorService = autorService;
     }
 
     private final String ENDERECO = "http://gutendex.com/books?search=";
@@ -94,7 +98,7 @@ public class Principal {
     }
 
     private void listarAutoresRegis() {
-        // Implementação do método
+        autorService.telaAutoresLivros();
     }
 
     private void autoresVivosEmAno() {
