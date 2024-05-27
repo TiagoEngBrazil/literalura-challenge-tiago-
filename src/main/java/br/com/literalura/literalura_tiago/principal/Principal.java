@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -41,6 +42,8 @@ public class Principal {
     private final String ENDERECO = "http://gutendex.com/books?search=";
 
     public void exibeMenu() {
+
+
         var menu = """
                  \n
                 Digite a opção desejada:
@@ -54,42 +57,51 @@ public class Principal {
                  0 - Sair                                 
                  """;
 
-        System.out.println(menu);
-        var opcao = leitura.nextInt();
-        leitura.nextLine();
+        int opcao = -1;
 
         while (opcao != 0) {
-            switch (opcao) {
-                case 1 -> {
-                    System.out.println("Opção 1 selecionada");
-                    buscarLivroPeloTitulo();
-                }
-                case 2 -> {
-                    System.out.println("Opção 2 selecionada");
-                    listarLivrosRegis();
-                }
-                case 3 -> {
-                    System.out.println("Opção 3 selecionada");
-                    listarAutoresRegis();
-                }
-                case 4 -> {
-                    System.out.println("Opção 4 selecionada");
-                    autoresVivosEmAno();
-                }
-                case 5 -> {
-                    System.out.println("Opção 5 selecionada");
-                    buscarLivrosPorIdioma();
-                } case 6 -> {
-                    System.out.println("Opção 6 selecionada");
-                    top10Downloads();
-                }
-                default -> System.out.println("Opção inválida");
-            }
             System.out.println(menu);
-            opcao = leitura.nextInt();
-            leitura.nextLine();
+
+            try {
+                System.out.print("Escolha uma opção: ");
+                opcao = Integer.parseInt(leitura.nextLine());
+
+                switch (opcao) {
+                    case 1 -> {
+                        System.out.println("Opção 1 selecionada");
+                        buscarLivroPeloTitulo();
+                    }
+                    case 2 -> {
+                        System.out.println("Opção 2 selecionada");
+                        listarLivrosRegis();
+                    }
+                    case 3 -> {
+                        System.out.println("Opção 3 selecionada");
+                        listarAutoresRegis();
+                    }
+                    case 4 -> {
+                        System.out.println("Opção 4 selecionada");
+                        autoresVivosEmAno();
+                    }
+                    case 5 -> {
+                        System.out.println("Opção 5 selecionada");
+                        buscarLivrosPorIdioma();
+                    }
+                    case 6 -> {
+                        System.out.println("Opção 6 selecionada");
+                        top10Downloads();
+                    }
+                    case 0 -> {
+                        System.out.println("Saindo ...");
+                    }
+                    default -> {
+                        System.out.println("Opção inválida");
+                    }
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Entrada inválida. Por favor, insira um número válido.");
+            }
         }
-        System.out.println("Saindo ...");
         System.exit(0);
     }
 
