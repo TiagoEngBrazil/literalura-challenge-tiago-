@@ -9,11 +9,9 @@ public class ConsumoApi {
 
     private final RestTemplate restTemplate;
     
-    private final SomeService someService;
 
-    public ConsumoApi(RestTemplate restTemplate, SomeService someService) {
+    public ConsumoApi(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
-        this.someService = someService;
     }
 
     public String obterDados(String url) {

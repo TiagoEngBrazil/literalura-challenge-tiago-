@@ -15,13 +15,13 @@ public class Autor {
     private String name;
 
     @Column(name = "birth_year")
-    private int birthYear;
+    private Integer birthYear;
 
     @Column(name = "death_year")
     private Integer deathYear; // Integer para permitir valores nulos
 
     @ManyToMany(mappedBy = "authors")
-    private List<Livro> livros;
+    private List<Livro> livrosEAutores;
 
     public Autor() {
     }
@@ -53,7 +53,7 @@ public class Autor {
         this.name = name;
     }
 
-    public int getBirthYear() {
+    public Integer getBirthYear() {
         return birthYear;
     }
 
@@ -69,11 +69,11 @@ public class Autor {
         this.deathYear = deathYear;
     }
 
-    public List<Livro> getLivros() {
-        return livros;
+    public List<Livro> getLivrosEAutores() {
+        return livrosEAutores;
     }
 
-    public void setLivros(List<Livro> livros) {
-        this.livros = livros;
+    public void setLivrosEAutores(List<Livro> livrosEAutores) {
+        this.livrosEAutores = livrosEAutores;
     }
 }

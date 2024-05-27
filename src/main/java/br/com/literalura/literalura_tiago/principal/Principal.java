@@ -46,6 +46,7 @@ public class Principal {
                 3 - Listar autores registrados
                 4 - Listar por autores que estavam vivos em um determinado ano 
                 5 - Listar livros em um determinado idioma  
+                6 - Listar Top 10 livros mais baixados
                 
                  0 - Sair                                 
                  """;
@@ -102,7 +103,10 @@ public class Principal {
     }
 
     private void autoresVivosEmAno() {
-        // Implementação do método
+        System.out.print("Insira o ano que deseja pesquisar: ");
+        var ano = leitura.nextInt();
+
+        autorService.autoresVivosAno(ano);
     }
 
     private void buscarLivrosPorIdioma() {
