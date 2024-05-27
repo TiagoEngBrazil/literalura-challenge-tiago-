@@ -146,4 +146,50 @@ public class LivroService {
         System.out.println("Número de Downloads: " + (livro.getDownloadCount() != null ? livro.getDownloadCount() : "N/A"));
         System.out.println("-----------------------------\n");
     }
+
+    @Transactional
+    public void listarLivrosPeloIdioma(String language) {
+        List<Livro> livros = livroRepository.findByLanguagesContaining(language);
+
+        if (livros.isEmpty()) {
+            System.out.println("\nNão existem livros no idioma " + language + " no banco de dados");
+            return;
+        }
+
+        for (Livro livro : livros) {
+            System.out.println("\n------------ LIVRO ------------");
+            System.out.println("Título: " + (livro.getTitle() != null ? livro.getTitle() : "N/A"));
+
+            if (!livro.getAuthors().isEmpty()) {
+                for (Autor author : livro.getAuthors()) {
+                    System.out.println("Autor(es): " + author.getName());
+                }
+            } else {
+                System.out.println("Autor: N/A");
+            }
+
+            System.out.println("Idioma: " + (livro.getLanguages().isEmpty() ? "N/A" : language));
+            System.out.println("Número de Downloads: " + (livro.getDownloadCount() != null ? livro.getDownloadCount() :
+                    "N/A"));
+            System.out.println("-------------------------------\n");
+        }
+    }
+
+
+    public void exibirTop10Downloads() {
+        List<Livro> topDownloads = livroRepository.findTop10ByOrderByDownloadCountDesc();
+
+        System.out.println("\nTop 10 Livros Mais Baixados:");
+        System.out.println("\n-----------------------------\n");
+        for (int i = 0; i < topDownloads.size(); i++) {
+            Livro livro = topDownloads.get(i);
+            System.out.println("Posição: " + (i + 1));
+            System.out.println("Título: " + livro.getTitle());
+            for (Autor author : livro.getAuthors()) {
+                System.out.println("Autor(es): " + author.getName());
+            }
+            System.out.println("Número de Downloads: " + livro.getDownloadCount());
+            System.out.println("\n-----------------------------\n");
+        }
+    }
 }

@@ -1,13 +1,16 @@
 package br.com.literalura.literalura_tiago.principal;
 
+import br.com.literalura.literalura_tiago.model.Autor;
 import br.com.literalura.literalura_tiago.model.DadosLivro;
 import br.com.literalura.literalura_tiago.model.Livro;
+import br.com.literalura.literalura_tiago.repository.LivroRepository;
 import br.com.literalura.literalura_tiago.service.AutorService;
 import br.com.literalura.literalura_tiago.service.ConsumoApi;
 import br.com.literalura.literalura_tiago.service.ConverteDados;
 import br.com.literalura.literalura_tiago.service.LivroService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,6 +79,9 @@ public class Principal {
                 case 5 -> {
                     System.out.println("Opção 5 selecionada");
                     buscarLivrosPorIdioma();
+                } case 6 -> {
+                    System.out.println("Opção 6 selecionada");
+                    top10Downloads();
                 }
                 default -> System.out.println("Opção inválida");
             }
@@ -110,6 +116,15 @@ public class Principal {
     }
 
     private void buscarLivrosPorIdioma() {
-        // Implementação do método
+        System.out.println("Insira o idioma para realizar a busca: ");
+        System.out.print("\nes - espanhol" + "\n" + "en - inglês" + "\n" + "fr - francês" + "\n" + "pt - português\n");
+        var idioma = leitura.nextLine();
+
+        livroService.listarLivrosPeloIdioma(idioma);
+    }
+
+    @Transactional
+    private void top10Downloads() {
+        livroService.exibirTop10Downloads();
     }
 }

@@ -1,6 +1,7 @@
 package br.com.literalura.literalura_tiago;
 
 import br.com.literalura.literalura_tiago.principal.Principal;
+import br.com.literalura.literalura_tiago.repository.LivroRepository;
 import br.com.literalura.literalura_tiago.service.AutorService;
 import br.com.literalura.literalura_tiago.service.ConsumoApi;
 import br.com.literalura.literalura_tiago.service.LivroService;
@@ -19,7 +20,8 @@ public class LiteraluraTiagoApplication implements CommandLineRunner {
 
 	private final AutorService autorService;
 
-	public LiteraluraTiagoApplication(@Lazy ConsumoApi consumoApi, LivroService livroService, AutorService autorService) {
+
+	public LiteraluraTiagoApplication(@Lazy ConsumoApi consumoApi, LivroService livroService, AutorService autorService, LivroRepository livroRepository) {
 		this.consumoApi = consumoApi;
         this.livroService = livroService;
         this.autorService = autorService;
