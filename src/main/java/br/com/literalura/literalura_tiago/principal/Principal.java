@@ -1,9 +1,6 @@
 package br.com.literalura.literalura_tiago.principal;
 
-import br.com.literalura.literalura_tiago.model.Autor;
 import br.com.literalura.literalura_tiago.model.DadosLivro;
-import br.com.literalura.literalura_tiago.model.Livro;
-import br.com.literalura.literalura_tiago.repository.LivroRepository;
 import br.com.literalura.literalura_tiago.service.AutorService;
 import br.com.literalura.literalura_tiago.service.ConsumoApi;
 import br.com.literalura.literalura_tiago.service.ConverteDados;
@@ -13,7 +10,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -47,12 +43,16 @@ public class Principal {
         var menu = """
                  \n
                 Digite a opção desejada:
-                1 - Buscar livros pelo título
-                2 - Listar livros registrados
-                3 - Listar autores registrados
-                4 - Listar por autores que estavam vivos em um determinado ano 
-                5 - Listar livros em um determinado idioma  
-                6 - Listar Top 10 livros mais baixados
+                1  - Buscar livros pelo título
+                2  - Listar livros registrados
+                3  - Listar autores registrados
+                4  - Listar por autores que estavam vivos em um determinado ano 
+                5  - Listar livros em um determinado idioma  
+                6  - Listar Top 10 livros mais baixados
+                7  - Buscar autor por nome
+                8  - Buscar autor por ano de nascimento
+                9  - Buscar autor por ano de falecimento
+                10 - Estatisticas dos livros registrados no banco de dados
                 
                  0 - Sair                                 
                  """;
@@ -90,6 +90,22 @@ public class Principal {
                     case 6 -> {
                         System.out.println("Opção 6 selecionada");
                         top10Downloads();
+                    }
+                    case 7 -> {
+                        System.out.println("Opção 7 selecionada");
+                        bascaAutorPorNome();
+                    }
+                    case 8 -> {
+                        System.out.println("Opção 8 selecionada");
+                        bascaAutorPorAnoDeNascimento();
+                    }
+                    case 9 -> {
+                        System.out.println("Opção 9 selecionada");
+                        bascaAutorPorAnoDeFalecimento();
+                    }
+                    case 10 -> {
+                        System.out.println("Opção 10 selecionada");
+                        estatisticasLivros();
                     }
                     case 0 -> {
                         System.out.println("Saindo ...");
@@ -139,4 +155,58 @@ public class Principal {
     private void top10Downloads() {
         livroService.exibirTop10Downloads();
     }
+
+    private void bascaAutorPorNome() {
+        System.out.print("Insira o nome do Autor que deseja pesquisar: ");
+        var name = leitura.nextLine();
+        autorService.encontarAutorPeloNome(name);
+    }
+
+    private void bascaAutorPorAnoDeNascimento() {
+        System.out.print("Insira o ano de nascimento do Autor que deseja pesquisar: ");
+        var anoNascimento = leitura.nextLine();
+
+        autorService.econtrarAutorPorAnoDeNascimento(anoNascimento);
+    }
+
+    private void bascaAutorPorAnoDeFalecimento() {
+        System.out.print("Insira o ano de falecimento do Autor que deseja pesquisar: ");
+        var anoFalecimento = leitura.nextLine();
+
+        autorService.encontrarAutorPorAnoDeFalecimento(anoFalecimento);
+    }
+
+    private void estatisticasLivros() {
+        int escolha = -1;
+
+        while (escolha != 0) {
+            System.out.print("\nEscolha uma opção:\n" +
+                    "1 - Percentual de livros por autor\n" +
+                    "2 - Percentual de livros por idioma\n" +
+                    "0 - Voltar ao menu inicial\n");
+
+            try {
+                System.out.print("Escolha uma opção: ");
+                escolha = Integer.parseInt(leitura.nextLine());
+
+                switch (escolha) {
+                    case 1 -> {
+                        autorService.percentualLivrosPorAutor();
+                    }
+                    case 2 -> {
+                        autorService.percentualLivrosPorIdioma();
+                    }
+                    case 0 -> {
+                        System.out.println("Voltando ao menu inicial...");
+                    }
+                    default -> {
+                        System.out.println("Opção inválida. Por favor, insira um número válido.");
+                    }
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Entrada inválida. Por favor, insira um número válido.");
+            }
+        }
+    }
+
 }
