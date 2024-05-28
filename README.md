@@ -19,10 +19,3 @@ O projeto utiliza o Spring Boot para criar uma aplicação Java. São utilizadas
 
 ## Banco de Dados
 O projeto utiliza um banco de dados PostgreSQL para armazenar os dados dos livros e autores. É necessário configurar a conexão com o banco de dados no arquivo `application.properties`.
-
-## Passos para Construção
-1. Crie um repositório vazio no GitHub
-2. Configure o ambiente de desenvolvimento com Java e Maven
-3. Consuma a API Gutendex para buscar informações sobre livros
-4. Implemente a persistência de dados com o Spring Data JPA
-5. Crie interfaces para listar e consultar os dados dos livros e autores
