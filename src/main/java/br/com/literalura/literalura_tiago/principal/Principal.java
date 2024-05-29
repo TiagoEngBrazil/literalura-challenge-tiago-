@@ -1,6 +1,5 @@
 package br.com.literalura.literalura_tiago.principal;
 
-import br.com.literalura.literalura_tiago.model.DadosLivro;
 import br.com.literalura.literalura_tiago.service.AutorService;
 import br.com.literalura.literalura_tiago.service.ConsumoApi;
 import br.com.literalura.literalura_tiago.service.ConverteDados;
@@ -9,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 @Component
@@ -25,8 +22,6 @@ public class Principal {
     private final LivroService livroService;
 
     private final AutorService autorService;
-
-    private List<DadosLivro> dadosLivros = new ArrayList<>();
 
     @Autowired
     public Principal(ConsumoApi consumoApi, LivroService livroService, AutorService autorService) {

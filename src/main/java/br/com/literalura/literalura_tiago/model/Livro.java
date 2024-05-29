@@ -12,9 +12,6 @@ public class Livro {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "author")
-    private String author;
-
     @Column(length = 255)
     private String title;
 
@@ -39,8 +36,6 @@ public class Livro {
 
     public Livro() {
     }
-
-    // getters and setters
 
     public Long getId() {
         return id;
