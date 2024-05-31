@@ -1,8 +1,6 @@
 package br.com.literalura.literalura_tiago.principal;
 
 import br.com.literalura.literalura_tiago.service.AutorService;
-import br.com.literalura.literalura_tiago.service.ConsumoApi;
-import br.com.literalura.literalura_tiago.service.ConverteDados;
 import br.com.literalura.literalura_tiago.service.LivroService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -15,22 +13,16 @@ public class Principal {
 
     private final Scanner leitura = new Scanner(System.in);
 
-    private final ConverteDados conversor = new ConverteDados();
-
-    private final ConsumoApi consumoApi;
 
     private final LivroService livroService;
 
     private final AutorService autorService;
 
     @Autowired
-    public Principal(ConsumoApi consumoApi, LivroService livroService, AutorService autorService) {
-        this.consumoApi = consumoApi;
+    public Principal(LivroService livroService, AutorService autorService) {
         this.livroService = livroService;
         this.autorService = autorService;
     }
-
-    private final String ENDERECO = "http://gutendex.com/books?search=";
 
     public void exibeMenu() {
 
@@ -110,6 +102,7 @@ public class Principal {
                     }
                 }
             } catch (NumberFormatException e) {
+                leitura.nextLine();
                 System.out.println("Entrada inválida. Por favor, insira um número válido.");
             }
         }
@@ -134,6 +127,7 @@ public class Principal {
     private void autoresVivosEmAno() {
         System.out.print("Insira o ano que deseja pesquisar: ");
         var ano = leitura.nextInt();
+        leitura.nextLine();
 
         autorService.autoresVivosAno(ano);
     }

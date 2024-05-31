@@ -3,26 +3,21 @@ package br.com.literalura.literalura_tiago;
 import br.com.literalura.literalura_tiago.principal.Principal;
 import br.com.literalura.literalura_tiago.repository.LivroRepository;
 import br.com.literalura.literalura_tiago.service.AutorService;
-import br.com.literalura.literalura_tiago.service.ConsumoApi;
 import br.com.literalura.literalura_tiago.service.LivroService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
 public class LiteraluraTiagoApplication implements CommandLineRunner {
-
-	private final ConsumoApi consumoApi;
 
 	private final LivroService livroService;
 
 	private final AutorService autorService;
 
 
-	public LiteraluraTiagoApplication(@Lazy ConsumoApi consumoApi, LivroService livroService, AutorService autorService, LivroRepository livroRepository) {
-		this.consumoApi = consumoApi;
+	public LiteraluraTiagoApplication(LivroService livroService, AutorService autorService, LivroRepository livroRepository) {
         this.livroService = livroService;
         this.autorService = autorService;
     }
@@ -37,7 +32,7 @@ public class LiteraluraTiagoApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		Principal principal = new Principal(consumoApi, livroService, autorService);
+		Principal principal = new Principal(livroService, autorService);
 
 		principal.exibeMenu();
 	}

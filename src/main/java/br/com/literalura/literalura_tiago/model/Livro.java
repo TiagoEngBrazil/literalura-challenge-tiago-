@@ -37,24 +37,12 @@ public class Livro {
     public Livro() {
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public String getTitle() {
         return title;
     }
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public List<Format> getFormats() {
-        return formats;
     }
 
     public void setFormats(List<Format> formats) {
@@ -79,9 +67,5 @@ public class Livro {
 
     public List<Autor> getAuthors() {
         return authors;
-    }
-
-    public void setAuthors(List<Autor> authors) {
-        this.authors = authors;
     }
 }
